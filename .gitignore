@@ -1,0 +1,24 @@
+# Keil build output
+MDK-ARM/build/
+MDK-ARM/*.uvguix.*
+MDK-ARM/*.bak
+MDK-ARM/*.dep
+MDK-ARM/*.lst
+MDK-ARM/*.map
+MDK-ARM/*.htm
+MDK-ARM/*.hex
+MDK-ARM/*.axf
+MDK-ARM/*.o
+MDK-ARM/*.d
+MDK-ARM/*.crf
+MDK-ARM/*.lnp
+MDK-ARM/*.sct
+
+# Editor / operating-system files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Host-side tests
+tests/*.exe
