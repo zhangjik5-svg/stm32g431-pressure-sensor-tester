@@ -266,32 +266,32 @@ static void lcd_line(uint8_t line, const char *text)
 
 static void show_live_page(void)
 {
-    char text[21];
+    char text[48];
     uint16_t pressure_milli = (uint16_t)(pressure_mpa * 1000.0f + 0.5f);
     uint16_t voltage_centi = (uint16_t)(sensor_voltage * 100.0f + 0.5f);
 
     lcd_line(Line0, " PRESSURE TESTER");
-    sprintf(text, "MODE:MAN  F:%lu", (unsigned long)command_frequency_hz);
+    snprintf(text, sizeof(text), "MODE:MAN  F:%lu", (unsigned long)command_frequency_hz);
     lcd_line(Line2, text);
-    sprintf(text, "PWM:%u.%u%%",
+    snprintf(text, sizeof(text), "PWM:%u.%u%%",
             command_duty_permille / 10U,
             command_duty_permille % 10U);
     lcd_line(Line3, text);
-    sprintf(text, "P:%u.%03u MPa",
+    snprintf(text, sizeof(text), "P:%u.%03u MPa",
             pressure_milli / 1000U,
             pressure_milli % 1000U);
     lcd_line(Line4, text);
-    sprintf(text, "SENSOR:%u.%02u V",
+    snprintf(text, sizeof(text), "SENSOR:%u.%02u V",
             voltage_centi / 100U,
             voltage_centi % 100U);
     lcd_line(Line5, text);
     if (feedback_valid) {
-        sprintf(text, "FB:%luHz %u.%u%%",
+        snprintf(text, sizeof(text), "FB:%luHz %u.%u%%",
                 (unsigned long)feedback_frequency_hz,
                 feedback_duty_permille / 10U,
                 feedback_duty_permille % 10U);
     } else {
-        sprintf(text, "FB:NO SIGNAL");
+        snprintf(text, sizeof(text), "FB:NO SIGNAL");
     }
     lcd_line(Line6, text);
     lcd_line(Line8, "B2:FREQ B3:AUTO");
@@ -316,7 +316,7 @@ static const char *auto_state_name(void)
 
 static void show_test_page(void)
 {
-    char text[21];
+    char text[48];
     uint8_t shown_point = auto_point_index;
 
     if (shown_point >= AUTO_POINT_COUNT) {
@@ -326,16 +326,16 @@ static void show_test_page(void)
     }
 
     lcd_line(Line0, "  AUTO TEST");
-    sprintf(text, "STATE:%s", auto_state_name());
+    snprintf(text, sizeof(text), "STATE:%s", auto_state_name());
     lcd_line(Line2, text);
-    sprintf(text, "POINT:%u/%u", shown_point, AUTO_POINT_COUNT);
+    snprintf(text, sizeof(text), "POINT:%u/%u", shown_point, AUTO_POINT_COUNT);
     lcd_line(Line3, text);
-    sprintf(text, "CMD:%luHz %u.%u%%",
+    snprintf(text, sizeof(text), "CMD:%luHz %u.%u%%",
             (unsigned long)command_frequency_hz,
             command_duty_permille / 10U,
             command_duty_permille % 10U);
     lcd_line(Line4, text);
-    sprintf(text, "PASS:%u FAIL:%u", passed_points, failed_points);
+    snprintf(text, sizeof(text), "PASS:%u FAIL:%u", passed_points, failed_points);
     lcd_line(Line5, text);
     if ((auto_state == PRESSURE_AUTO_COMPLETE) && (failed_points == 0U)) {
         lcd_line(Line7, "RESULT: PASS");
