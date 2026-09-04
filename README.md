@@ -76,5 +76,6 @@ PB12/R38 or pressure sensor ─ADC1─> pressure       PA15 / TIM2
 ## 当前验证状态
 
 - 纯算法模块已包含主机单元测试。
+- GitHub Actions 会在每次提交时运行算法测试和固件烟雾测试。
 - Keil 工程保留 STM32 HAL、CMSIS、启动文件和 CubeMX 配置，可直接打开编译。
 - 实物板烧录、示波器波形和外部压力传感器标定尚待完成；仓库不会把未完成的板测写成已验证结果。

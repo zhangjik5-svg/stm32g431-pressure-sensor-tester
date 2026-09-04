@@ -1,0 +1,30 @@
+name: Host tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Test hardware-independent calculations
+        run: |
+          gcc -std=c11 -Wall -Wextra -Werror \
+            -Icode \
+            code/pressure_math.c tests/test_pressure_math.c \
+            -o /tmp/test_pressure_math
+          /tmp/test_pressure_math
+
+      - name: Compile and run firmware smoke harness
+        run: |
+          gcc -std=c11 -Wall -Wextra -Werror \
+            -D__LCD_H -include tests/stubs/lcd.h \
+            -Itests/stubs -Icode \
+            code/pressure_math.c code/pressure_tester.c code/input_keys.c \
+            tests/compile_firmware_smoke.c \
+            -o /tmp/firmware_smoke
+          /tmp/firmware_smoke
